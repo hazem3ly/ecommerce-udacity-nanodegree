@@ -3,14 +3,14 @@
         "driver": "pg",
         "host": "127.0.0.1",
         "database": "ecommerce",
-        "user": "hazem",
-        "password": "1234"
+        "user": "admin",
+        "password": "password123"
     },
     "test": {
         "driver": "pg",
         "host": "127.0.0.1",
         "database": "ecommerce_test",
         "user": "admin",
-        "password": "P@$$w0rd123"
+        "password": "password123"
     }
 }
