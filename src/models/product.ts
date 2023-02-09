@@ -37,20 +37,20 @@ export class Products {
         }
     }
 
-    async create(b: Product): Promise<Product> {
+    async create(product: Product): Promise<Product> {
         try {
             const sql = 'INSERT INTO products (name, price, category) VALUES($1, $2, $3) RETURNING *'
             const conn = await client.connect()
 
-            const result = await conn.query(sql, [b.name, b.price, b.category])
+            const result = await conn.query(sql, [product.name, product.price, product.category])
 
-            const product = result.rows[0]
+            const newProduct = result.rows[0]
 
             conn.release()
 
-            return product
+            return newProduct
         } catch (err) {
-            throw new Error(`Could not add new product ${b.name}. Error: ${err}`)
+            throw new Error(`Could not add new product ${product.name}. Error: ${err}`)
         }
     }
 
