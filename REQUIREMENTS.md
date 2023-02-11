@@ -54,3 +54,40 @@ These are the notes from a meeting with the frontend developer that describe wha
 - quantity of each product in the order
 - user_id
 - status of order (active or complete)
+
+## Database Schema
+
+Products Table
+(id number, name VARCHAR, price number, category VARCHAR);
+  Column  |         Type          | Collation | Nullable |               Default
+----------+-----------------------+-----------+----------+--------------------------------------
+ id       | integer               |           | not null | nextval('products_id_seq'::regclass)
+ name     | character varying(50) |           | not null |
+ price    | integer               |           | not null |
+ category | character varying(50) |           |          |
+
+Users Table
+(id number, first_name VARCHAR, last_name VARCHAR, password VARCHAR);
+   Column   |          Type          | Collation | Nullable |              Default
+------------+------------------------+-----------+----------+-----------------------------------
+ id         | integer                |           | not null | nextval('users_id_seq'::regclass)
+ first_name | character varying(50)  |           | not null |
+ last_name  | character varying(50)  |           | not null |
+ password   | character varying(255) |           | not null |
+
+Orders Table
+(id number, user_id integer (foreign key to users table), status VARCHAR);
+ Column  |         Type          | Collation | Nullable |              Default
+---------+-----------------------+-----------+----------+------------------------------------
+ id      | integer               |           | not null | nextval('orders_id_seq'::regclass)
+ user_id | integer               |           |          |
+ status  | character varying(50) |           |          |
+
+OrderProducts Table
+(id number, quantity integer, order_id integer (foreign key to orders table), product_id integer  (foreign key to products table));
+   Column   |  Type   | Collation | Nullable |                  Default
+------------+---------+-----------+----------+-------------------------------------------
+ id         | integer |           | not null | nextval('order_product_id_seq'::regclass)
+ quantity   | integer |           |          |
+ order_id   | integer |           |          |
+ product_id | integer |           |          |

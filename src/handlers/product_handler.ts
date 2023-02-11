@@ -5,8 +5,14 @@ import { Product, Products } from "../models/product";
 const products = new Products();
 
 const index = async (req: Request, res: Response) => {
-  const productsReslults = await products.index();
-  res.json(productsReslults);
+  try {
+    const productsReslults = await products.index();
+    res.json(productsReslults);
+
+  } catch (error) {
+    res.status(400).json(error)
+
+  }
 };
 
 const show = async (req: Request, res: Response) => {

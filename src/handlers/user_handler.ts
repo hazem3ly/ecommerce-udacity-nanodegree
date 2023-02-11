@@ -6,13 +6,25 @@ import { verifyAuthToken } from "../middleware/verify_token";
 const users = new Users();
 
 const index = async (req: Request, res: Response) => {
-  const usersReslults = await users.index();
-  res.json(usersReslults);
+  try {
+    const usersReslults = await users.index();
+    res.json(usersReslults);
+
+  } catch (error) {
+    res.status(400).json(error)
+
+  }
 };
 
 const show = async (req: Request, res: Response) => {
-  const user = await users.show(req.params.id)
-  res.json(user)
+  try {
+    const user = await users.show(req.params.id)
+    res.json(user)
+
+  } catch (error) {
+    res.status(400).json(error)
+
+  }
 }
 
 const create = async (req: Request, res: Response) => {
@@ -31,14 +43,20 @@ const create = async (req: Request, res: Response) => {
 }
 
 const authenticate = async (req: Request, res: Response) => {
-  let first_name = req.body.first_name
-  let last_name = req.body.last_name
-  let password = req.body.password
+  try {
+    let first_name = req.body.first_name
+    let last_name = req.body.last_name
+    let password = req.body.password
 
-  const newuser = await users.authenticate(first_name, last_name, password);
+    const newuser = await users.authenticate(first_name, last_name, password);
 
-  let token = jwt.sign({ newuser }, process.env.TOKEN_SECRET as string)
-  res.json({ token: token })
+    let token = jwt.sign({ newuser }, process.env.TOKEN_SECRET as string)
+    res.json({ token: token })
+
+  } catch (error) {
+    res.status(400).json(error)
+
+  }
 }
 
 const usersRoutes = (app: Application) => {

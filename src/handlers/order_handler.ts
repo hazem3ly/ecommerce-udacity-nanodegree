@@ -5,13 +5,21 @@ import { Order, Orders } from "../models/order";
 const orders = new Orders();
 
 const index = async (req: Request, res: Response) => {
-  const ordersReslults = await orders.index();
-  res.json(ordersReslults);
+  try {
+    const ordersReslults = await orders.index();
+    res.json(ordersReslults);
+  } catch (error) {
+    res.status(400).json(error)
+  }
 };
 
 const show = async (req: Request, res: Response) => {
-  const order = await orders.show(req.params.id)
-  res.json(order)
+  try {
+    const order = await orders.show(req.params.id)
+    res.json(order)
+  } catch (error) {
+    res.status(400).json(error)
+  }
 }
 
 const create = async (req: Request, res: Response) => {
@@ -23,15 +31,18 @@ const create = async (req: Request, res: Response) => {
 
     const neworder = await orders.create(order)
     res.json(neworder)
-  } catch (err) {
-    res.status(400)
-    res.json(err)
+  } catch (error) {
+    res.status(400).json(error)
   }
 }
 
 const destroy = async (req: Request, res: Response) => {
-  const deleted = await orders.delete(req.body.id)
-  res.json(deleted)
+  try {
+    const deleted = await orders.delete(req.body.id)
+    res.json(deleted)
+  } catch (error) {
+    res.status(400).json(error)
+  }
 }
 
 const addProductToOrder = async (req: Request, res: Response) => {
@@ -40,11 +51,11 @@ const addProductToOrder = async (req: Request, res: Response) => {
     const product_id = parseInt(req.body.product_id as string)
     const quantity = parseInt(req.body.quantity as string)
 
-    // if (!order_id || !product_id || !quantity) {
-    //   return res.status(400).json({
-    //     error: 'Missing parameters',
-    //   })
-    // }
+    if (!order_id || !product_id || !quantity) {
+      return res.status(400).json({
+        error: 'Missing parameters',
+      })
+    }
     console.log(order_id);
 
     const product = await orders.addProduct(
@@ -54,15 +65,18 @@ const addProductToOrder = async (req: Request, res: Response) => {
     )
 
     res.json(product)
-  } catch (err) {
-    res.status(400)
-    res.json(err)
+  } catch (error) {
+    res.status(400).json(error)
   }
 }
 
 const userOrder = async (req: Request, res: Response) => {
-  const order = await orders.userOrder(req.params.id)
-  res.json(order)
+  try {
+    const order = await orders.userOrder(req.params.id)
+    res.json(order)
+  } catch (error) {
+    res.status(400).json(error)
+  }
 }
 
 
