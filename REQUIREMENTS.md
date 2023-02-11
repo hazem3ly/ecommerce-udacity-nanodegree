@@ -59,6 +59,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 Products Table
 (id number, name VARCHAR, price number, category VARCHAR);
+
   Column  |         Type          | Collation | Nullable |               Default
 ----------+-----------------------+-----------+----------+--------------------------------------
  id       | integer               |           | not null | nextval('products_id_seq'::regclass)
@@ -68,6 +69,7 @@ Products Table
 
 Users Table
 (id number, first_name VARCHAR, last_name VARCHAR, password VARCHAR);
+
    Column   |          Type          | Collation | Nullable |              Default
 ------------+------------------------+-----------+----------+-----------------------------------
  id         | integer                |           | not null | nextval('users_id_seq'::regclass)
@@ -77,6 +79,7 @@ Users Table
 
 Orders Table
 (id number, user_id integer (foreign key to users table), status VARCHAR);
+
  Column  |         Type          | Collation | Nullable |              Default
 ---------+-----------------------+-----------+----------+------------------------------------
  id      | integer               |           | not null | nextval('orders_id_seq'::regclass)
@@ -85,6 +88,7 @@ Orders Table
 
 OrderProducts Table
 (id number, quantity integer, order_id integer (foreign key to orders table), product_id integer  (foreign key to products table));
+
    Column   |  Type   | Collation | Nullable |                  Default
 ------------+---------+-----------+----------+-------------------------------------------
  id         | integer |           | not null | nextval('order_product_id_seq'::regclass)
