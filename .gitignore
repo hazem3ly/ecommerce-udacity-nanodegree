@@ -1,5 +1,4 @@
-# ignore compiled JavaScript files
-*.js
+
 
 # ignore compiled declaration files
 *.d.ts
