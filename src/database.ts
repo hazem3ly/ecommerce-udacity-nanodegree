@@ -12,10 +12,10 @@ const {
     POSTGRES_DP_TEST,
     POSTGRES_USER,
     POSTGRES_PASSWORD,
-    ENV,
+    NODE_ENV,
 } = process.env
-
-if (ENV === "dev") {
+console.log(NODE_ENV)
+if (NODE_ENV === "dev") {
     client = new Pool({
         host: POSTGRES_HOST,
         database: POSTGRES_DP,

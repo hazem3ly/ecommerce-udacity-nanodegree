@@ -9,11 +9,12 @@
     "tsc": "tsc",
     "build": "npx tsc",
     "jasmine": "jasmine",
-    "test": "npm run build && ENV=test && db-migrate --env test up && npm run jasmine && db-migrate --env test reset"
+    "test": "npm run build &&  db-migrate --env test reset && db-migrate --env test up && NODE_ENV=test jasmine && db-migrate --env test reset"
   },
   "author": "Udacity",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
     "db-migrate": "^0.11.13",
     "db-migrate-pg": "^1.2.2",
@@ -22,12 +23,16 @@
     "jsonwebtoken": "^9.0.0",
     "pg": "^8.9.0",
     "postgres": "^3.3.3",
+    "supertest": "^6.3.3",
     "typescript": "^4.9.5"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.17",
     "@types/jasmine": "^3.10.7",
+    "@types/jsonwebtoken": "^9.0.1",
     "@types/pg": "^7.14.11",
+    "@types/supertest": "^2.0.12",
     "jasmine": "^4.5.0",
     "jasmine-spec-reporter": "^7.0.0",
     "jasmine-ts": "^0.3.0",

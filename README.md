@@ -2,10 +2,12 @@
 
 ## Getting Started
 
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
+This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `npm i` in your terminal at the project root.
 
 ## Required Technologies
+
 Your application must make use of the following libraries:
+
 - Postgres for the database
 - Node/Express for the application logic
 - dotenv from npm for managing environment variables
@@ -13,42 +15,40 @@ Your application must make use of the following libraries:
 - jsonwebtoken from npm for working with JWTs
 - jasmine from npm for testing
 
-## Steps to Completion
+## Installation Instructions
 
-### 1. Plan to Meet Requirements
+1- run (npm i) to intializing project
+2- The app run on port 3000 and database run on port 5432.
+2- build database
+     on postgres terminal run the following commands
+     a - create database ecommerce; // dev database
+     b - create database ecommerce_test; // test database
+     c - create user admin with password "password123";
+     d - \c ecommerce postgres; // switch to ecommerce database
+     e - GRANT ALL ON SCHEMA public TO admin; // to give the new user permission to admin
+     f - \c ecommerce_test postgres;
+     g - GRANT ALL ON SCHEMA public TO admin; // to give the new user permission to admin
 
-In this repo there is a `REQUIREMENTS.md` document which outlines what this API needs to supply for the frontend, as well as the agreed upon data shapes to be passed between front and backend. This is much like a document you might come across in real life when building or extending an API. 
+### Create .env file with following params
 
-Your first task is to read the requirements and update the document with the following:
-- Determine the RESTful route for each endpoint listed. Add the RESTful route and HTTP verb to the document so that the frontend developer can begin to build their fetch requests.    
-**Example**: A SHOW route: 'blogs/:id' [GET] 
+ POSTGRES_HOST=127.0.0.1
+ POSTGRES_DP=ecommerce
+ POSTGRES_DP_TEST=ecommerce_test
+ POSTGRES_USER=admin
+ POSTGRES_PASSWORD=password123
+ NODE_ENV=dev
+ BCRYPT_PASSWORD=ABCDEFGHIJKLMNO1234
+ SALT_ROUNDS=10
+ TOKEN_SECRET=QWERTY1234
 
-- Design the Postgres database tables based off the data shape requirements. Add to the requirements document the database tables and columns being sure to mark foreign keys.   
-**Example**: You can format this however you like but these types of information should be provided
-Table: Books (id:varchar, title:varchar, author:varchar, published_year:varchar, publisher_id:string[foreign key to publishers table], pages:number)
+ NOTE: i added an .temp_env file as reference
 
-**NOTE** It is important to remember that there might not be a one to one ratio between data shapes and database tables. Data shapes only outline the structure of objects being passed between frontend and API, the database may need multiple tables to store a single shape. 
+### DB Creation and Migrations
 
-### 2.  DB Creation and Migrations
+ run the following commands on project terminal
+    a - db-migrate up // to setup database tables
 
-Now that you have the structure of the databse outlined, it is time to create the database and migrations. Add the npm packages dotenv and db-migrate that we used in the course and setup your Postgres database. If you get stuck, you can always revisit the database lesson for a reminder. 
+### TESTING
 
-You must also ensure that any sensitive information is hashed with bcrypt. If any passwords are found in plain text in your application it will not pass.
-
-### 3. Models
-
-Create the models for each database table. The methods in each model should map to the endpoints in `REQUIREMENTS.md`. Remember that these models should all have test suites and mocks.
-
-### 4. Express Handlers
-
-Set up the Express handlers to route incoming requests to the correct model method. Make sure that the endpoints you create match up with the enpoints listed in `REQUIREMENTS.md`. Endpoints must have tests and be CORS enabled. 
-
-### 5. JWTs
-
-Add JWT functionality as shown in the course. Make sure that JWTs are required for the routes listed in `REQUIUREMENTS.md`.
-
-### 6. QA and `README.md`
-
-Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
-
-Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+  run the following command to run test
+     - npm test

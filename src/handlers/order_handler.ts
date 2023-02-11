@@ -1,4 +1,5 @@
 import express, { Application, Request, Response } from "express";
+import { verifyAuthToken } from "../middleware/verify_token";
 import { Order, Orders } from "../models/order";
 
 const orders = new Orders();
@@ -66,12 +67,12 @@ const userOrder = async (req: Request, res: Response) => {
 
 
 const ordersRoutes = (app: Application) => {
-  app.get("/orders", index)
-  app.get('/orders/:id', show)
-  app.post('/orders', create)
-  app.post('/orders/add_product', addProductToOrder)
-  app.get('/orders/user_order/:id', userOrder)
-  app.delete('/orders/:id', destroy)
+  app.get("/orders", verifyAuthToken, index)
+  app.get('/orders/:id', verifyAuthToken, show)
+  app.post('/orders', verifyAuthToken, create)
+  app.post('/orders/add_product', verifyAuthToken, addProductToOrder)
+  app.get('/orders/user_order/:id', verifyAuthToken, userOrder)
+  app.delete('/orders/:id', verifyAuthToken, destroy)
 };
 
 export default ordersRoutes;
